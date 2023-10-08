@@ -3,11 +3,10 @@ const path = require('path');
 
 console.log('Return type seen by plugin:')
 
-swc.transformFileSync('Test.tsx', {
+swc.transformFileSync('Test.ts', {
     jsc: {
         parser: {
             syntax: 'typescript',
-            tsx: true,
         },
         experimental: {
             plugins: [[path.resolve('./target/wasm32-wasi/debug/swc_return_type_repr.wasm'), {}]]
@@ -17,9 +16,8 @@ swc.transformFileSync('Test.tsx', {
 
 console.log('Return type from parse function (actual):')
 
-swc.parseFile('Test.tsx', {
+swc.parseFile('Test.ts', {
     syntax: 'typescript',
-    tsx: true
 }).then(result => {
     console.log(result.body[0].body[0].function.returnType)
 });
